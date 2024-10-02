@@ -13,6 +13,7 @@ pipeline {
                 echo 'Testing Phase'
                 sh '''
                     ls -la
+                    export PATH=$PATH:/usr/local/bin
                     node --version
                     npm --version
                 '''
