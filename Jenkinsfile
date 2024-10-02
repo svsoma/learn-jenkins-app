@@ -2,6 +2,12 @@ pipeline {
     agent any
 
     stages {
+        /*
+        Comment section
+        // This is for a single line comment while and are forward slash with asterisk are for multiple comments
+        */
+        
+        /*
         stage('Build') {
             agent {
                 docker {
@@ -21,6 +27,7 @@ pipeline {
                 '''
             }
         }
+        */
 
         stage('Test') {
             agent {
