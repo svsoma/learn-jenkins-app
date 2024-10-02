@@ -3,11 +3,9 @@ pipeline {
 
     stages {
         stage('Build') {
-            agent {
-                docker {
-                    reuseNode true
-                }
-                }
+            steps{
+                echo 'Build'
+            }
             }
           
            stage ('Test') {
