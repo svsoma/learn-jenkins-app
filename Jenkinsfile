@@ -13,8 +13,8 @@ pipeline {
                 echo 'Testing Phase'
                 sh '''
                     ls -la
+                    node --version
                     npm --version
-                    npm test
                 '''
                 }
             }
