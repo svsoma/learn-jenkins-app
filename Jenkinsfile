@@ -4,7 +4,9 @@ pipeline {
     stages {
         stage('Build') {
             agent {
-                  # reuseNode true
+                docker {
+                    reuseNode true
+                }
                 }
             }
           
