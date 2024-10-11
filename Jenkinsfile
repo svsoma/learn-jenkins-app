@@ -2,11 +2,7 @@ pipeline {
     agent any
 
     stages {
-        /*
-        Comment section
-        // This is for a single line comment while and are forward slash with asterisk are for multiple comments
-        */
-        
+            
         stage('Build') {
             agent {
                 docker {
@@ -19,7 +15,6 @@ pipeline {
                     ls -la
                     node --version
                     npm --version
-                    npm install
                     npm ci
                     npm run build
                     ls -la
@@ -65,29 +60,29 @@ pipeline {
             }
             */
         }
+        }
+
+        stage('Deploy') {
+                    agent {
+                        docker {
+                            image 'node:18-alpine'
+                            reuseNode true
+                        }
+                    }
+                    steps {
+                        sh '''
+                            npm install netlify-cli
+                            node_modules/.bin/netlify --version
+                        '''
+                    }
+                }
 
     }
-    }
-   
-    post {
+       
+    /* post {
         always {
             junit 'just-results/junit.xml'
             publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'Playwright HTML Report', reportTitles: '', useWrapperFileDirectly: true])
         }
-    }
-         
-       stage('Deploy') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
-            steps {
-                sh '''
-                    npm install netlify-cli
-                    node_modules/.bin/netlify --version
-                '''
-            }
-        }
+     } */
 }
