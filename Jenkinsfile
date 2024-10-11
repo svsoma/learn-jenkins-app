@@ -1,7 +1,10 @@
 pipeline {
     agent any
 
-    stages {
+    environment {
+        NETLIFY_SITE_ID = 'c2afd931-d73f-4dda-b9da-d0f6be333864'
+    }
+ 
             
         stage('Build') {
             agent {
@@ -39,8 +42,12 @@ pipeline {
                         npm test
                     '''
                 }
+                post {
+                    always {
+                        junit 'just-results/junit.xml'
+                    }
+                }
             }
-
             /*
             stage('E2E') {
                 agent {
@@ -57,12 +64,17 @@ pipeline {
                         sleep 10
                         npx playwright test --reporter=html
                     '''
-                }
+                } */
+            
+            post {
+                always {
+                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'Playwright HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+                    }
             }
-            */
         }
         }
-
+    
+        
         stage('Deploy') {
                     agent {
                         docker {
@@ -74,16 +86,8 @@ pipeline {
                         sh '''
                             npm install netlify-cli
                             node_modules/.bin/netlify --version
+                            echo "Deploying to production.  Site ID: $NETLIFY_SITE_ID"
                         '''
                     }
                 }
-
-    }
-       
-    /* post {
-        always {
-            junit 'just-results/junit.xml'
-            publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'Playwright HTML Report', reportTitles: '', useWrapperFileDirectly: true])
         }
-     } */
-}
