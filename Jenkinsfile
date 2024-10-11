@@ -7,8 +7,7 @@ pipeline {
         // This is for a single line comment while and are forward slash with asterisk are for multiple comments
         */
         
-        
-        stage('Build') {
+        dfgdfsgsdfgdsfgdfgdfsgsdfstage('Build') {
             agent {
                 docker {
                     image 'node:18-alpine'
@@ -46,6 +45,7 @@ pipeline {
                 }
             }
 
+            /*
             stage('E2E') {
                 agent {
                     docker {
@@ -63,11 +63,19 @@ pipeline {
                     '''
                 }
             }
+            */
         }
 
     }
     }
-        /*
+   
+    post {
+        always {
+            junit 'just-results/junit.xml'
+            publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'Playwright HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+        }
+    }
+         
        stage('Deploy') {
             agent {
                 docker {
@@ -82,12 +90,4 @@ pipeline {
                 '''
             }
         }
-        */
-
-    post {
-        always {
-            junit 'just-results/junit.xml'
-            publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'Playwright HTML Report', reportTitles: '', useWrapperFileDirectly: true])
-        }
-    }
 }
