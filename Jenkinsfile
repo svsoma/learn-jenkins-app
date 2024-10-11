@@ -5,7 +5,7 @@ pipeline {
         NETLIFY_SITE_ID = 'c2afd931-d73f-4dda-b9da-d0f6be333864'
     }
  
-            
+      stages {     
         stage('Build') {
             agent {
                 docker {
@@ -90,3 +90,4 @@ pipeline {
                }
             }
     }
+}
