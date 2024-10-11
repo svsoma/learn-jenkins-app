@@ -7,7 +7,7 @@ pipeline {
         // This is for a single line comment while and are forward slash with asterisk are for multiple comments
         */
         
-        dfgdfsgsdfgdsfgdfgdfsgsdfstage('Build') {
+        stage('Build') {
             agent {
                 docker {
                     image 'node:18-alpine'
