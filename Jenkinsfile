@@ -117,7 +117,7 @@ pipeline {
             agent {
                 docker {
                     image 'my-playwright'
-                    reuseNode true'
+                    reuseNode true
                 }
             }
 
