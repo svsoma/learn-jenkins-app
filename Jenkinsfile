@@ -17,11 +17,11 @@ pipeline {
                 }
             }
 
-            steps [
+            steps {
                 sh '''
                     aws --version
                 '''
-            ]
+            }
         }
 
         stage('Build') {
